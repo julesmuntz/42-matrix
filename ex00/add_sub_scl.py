@@ -1,38 +1,4 @@
-import numpy as np
-
-
-class Vector:
-    def add(self, other) -> np.array:
-        return Vector(*(self.v + other.v))
-
-    def sub(self, other) -> np.array:
-        return Vector(*(self.v - other.v))
-
-    def scl(self, other) -> np.array:
-        return Vector(*(self.v * other))
-
-    def __repr__(self) -> str:
-        return f"{self.v}"
-
-    def __init__(self, v1, v2):
-        self.v = np.array([v1, v2], dtype=float)
-
-
-class Matrix:
-    def add(self, other) -> np.array:
-        return Matrix(self.m + other.m)
-
-    def sub(self, other) -> np.array:
-        return Matrix(self.m - other.m)
-
-    def scl(self, other) -> np.array:
-        return Matrix(self.m * other)
-
-    def __repr__(self) -> str:
-        return f"{self.m}"
-
-    def __init__(self, m):
-        self.m = np.array(m, dtype=float)
+from matrix.matrix import Matrix, Vector
 
 
 def main():
