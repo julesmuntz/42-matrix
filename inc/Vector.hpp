@@ -73,43 +73,28 @@ public:
         return *this *= a;
     }
 
-    static Vector linear_combination(const std::list<Vector<K>> &u, const std::list<K> &coefs)
-    {
-        std::list<Vector<K>> u_copy = u;
-        std::list<K> coefs_copy = coefs;
-        Vector<K> result = u_copy.front().scl(coefs_copy.front());
-        u_copy.pop_front();
-        coefs_copy.pop_front();
-        while (u_copy.size())
-        {
-            result.add(u_copy.front().scl(coefs_copy.front()));
-            u_copy.pop_front();
-            coefs_copy.pop_front();
-        }
-        return result;
-    }
-    K dot(Vector v)
+    K dot(Vector v) const
     {
         K result = 0;
         for (size_t i = 0; i < this->v.size(); i++)
             result += this->v[i] * v.v[i];
         return result;
     }
-    float norm_1()
+    float norm_1() const
     {
         float result = 0;
         for (size_t i = 0; i < this->v.size(); i++)
             result += std::abs(this->v[i]);
         return result;
     }
-    float norm()
+    float norm() const
     {
         float result = 0;
         for (size_t i = 0; i < this->v.size(); i++)
             result += this->v[i] * this->v[i];
         return pow(result, 0.5);
     }
-    float norm_inf()
+    float norm_inf() const
     {
         float result = 0;
         for (size_t i = 0; i < this->v.size(); i++)
