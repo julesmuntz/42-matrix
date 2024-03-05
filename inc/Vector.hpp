@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <list>
+#include <cmath>
 
 template <typename K>
 class Vector
@@ -92,6 +93,27 @@ public:
         K result = 0;
         for (size_t i = 0; i < this->v.size(); i++)
             result += this->v[i] * v.v[i];
+        return result;
+    }
+    float norm_1()
+    {
+        float result = 0;
+        for (size_t i = 0; i < this->v.size(); i++)
+            result += std::abs(this->v[i]);
+        return result;
+    }
+    float norm()
+    {
+        float result = 0;
+        for (size_t i = 0; i < this->v.size(); i++)
+            result += this->v[i] * this->v[i];
+        return pow(result, 0.5);
+    }
+    float norm_inf()
+    {
+        float result = 0;
+        for (size_t i = 0; i < this->v.size(); i++)
+            result = std::max(result, std::abs(this->v[i]));
         return result;
     }
 };
