@@ -31,3 +31,13 @@ float angle_cos(const Vector<K> &u, const Vector<K> &v)
 {
     return u.dot(v) / (u.norm() * v.norm());
 }
+
+template <typename K>
+Vector<K> cross_product(const Vector<K> &u, const Vector<K> &v)
+{
+    Vector<K> result;
+    result.v.push_back(u.v[1] * v.v[2] - u.v[2] * v.v[1]);
+    result.v.push_back(u.v[2] * v.v[0] - u.v[0] * v.v[2]);
+    result.v.push_back(u.v[0] * v.v[1] - u.v[1] * v.v[0]);
+    return result;
+}
