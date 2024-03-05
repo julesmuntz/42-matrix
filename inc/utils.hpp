@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include "Vector.hpp"
 
 template <typename K>
@@ -36,8 +35,8 @@ template <typename K>
 Vector<K> cross_product(const Vector<K> &u, const Vector<K> &v)
 {
     Vector<K> result;
-    result.v.push_back(u.v[1] * v.v[2] - u.v[2] * v.v[1]);
-    result.v.push_back(u.v[2] * v.v[0] - u.v[0] * v.v[2]);
-    result.v.push_back(u.v[0] * v.v[1] - u.v[1] * v.v[0]);
+    result.vec.push_back(u.vec[1] * v.vec[2] - u.vec[2] * v.vec[1]);
+    result.vec.push_back(u.vec[2] * v.vec[0] - u.vec[0] * v.vec[2]);
+    result.vec.push_back(u.vec[0] * v.vec[1] - u.vec[1] * v.vec[0]);
     return result;
 }

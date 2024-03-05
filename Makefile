@@ -10,6 +10,7 @@ SRC =		00.cpp \
             04.cpp \
             05.cpp \
             06.cpp \
+            07.cpp \
 
 SRC :=		$(addprefix $(SRC_DIR)/, $(SRC))
 

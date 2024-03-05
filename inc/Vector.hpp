@@ -9,108 +9,108 @@ template <typename K>
 class Vector
 {
 public:
-    std::vector<K> v;
+    std::vector<K> vec;
 
-    Vector()
+    Vector<K>()
     {
     }
-    ~Vector()
+    ~Vector<K>()
     {
     }
-    Vector(const Vector &other) : v(other.v)
+    Vector<K>(const Vector<K> &other) : vec(other.vec)
     {
     }
-    Vector(const std::vector<K> &v) : v(v)
+    Vector<K>(const std::vector<K> &vec) : vec(vec)
     {
     }
 
-    Vector &operator=(const Vector &other)
+    Vector<K> &operator=(const Vector<K> &other)
     {
-        v = other.v;
+        vec = other.vec;
         return *this;
     }
-    Vector &operator+=(const Vector &other)
+    Vector<K> &operator+=(const Vector<K> &other)
     {
-        for (size_t i = 0; i < v.size(); i++)
-            v[i] += other.v[i];
+        for (size_t i = 0; i < vec.size(); i++)
+            vec[i] += other.vec[i];
         return *this;
     }
-    Vector &operator-=(const Vector &other)
+    Vector<K> &operator-=(const Vector<K> &other)
     {
-        for (size_t i = 0; i < v.size(); i++)
-            v[i] -= other.v[i];
+        for (size_t i = 0; i < vec.size(); i++)
+            vec[i] -= other.vec[i];
         return *this;
     }
-    Vector &operator*=(K a)
+    Vector<K> &operator*=(K a)
     {
-        for (size_t i = 0; i < v.size(); i++)
-            v[i] *= a;
+        for (size_t i = 0; i < vec.size(); i++)
+            vec[i] *= a;
         return *this;
     }
-    Vector &operator+(const Vector &v)
+    Vector<K> &operator+(const Vector<K> &vec)
     {
-        return *this += v;
+        return *this += vec;
     }
-    Vector &operator-(const Vector &v)
+    Vector<K> &operator-(const Vector<K> &vec)
     {
-        return *this -= v;
+        return *this -= vec;
     }
-    Vector &operator*(K a)
+    Vector<K> &operator*(K a)
     {
         return *this *= a;
     }
 
-    Vector &add(const Vector &v)
+    Vector<K> &add(const Vector<K> &vec)
     {
-        return *this += v;
+        return *this += vec;
     }
-    Vector &sub(const Vector &v)
+    Vector<K> &sub(const Vector<K> &vec)
     {
-        return *this -= v;
+        return *this -= vec;
     }
-    Vector &scl(const K a)
+    Vector<K> &scl(const K a)
     {
         return *this *= a;
     }
 
-    K dot(Vector v) const
+    K dot(Vector<K> vec) const
     {
         K result = 0;
-        for (size_t i = 0; i < this->v.size(); i++)
-            result += this->v[i] * v.v[i];
+        for (size_t i = 0; i < this->vec.size(); i++)
+            result += this->vec[i] * vec.vec[i];
         return result;
     }
     float norm_1() const
     {
         float result = 0;
-        for (size_t i = 0; i < this->v.size(); i++)
-            result += std::abs(this->v[i]);
+        for (size_t i = 0; i < this->vec.size(); i++)
+            result += std::abs(this->vec[i]);
         return result;
     }
     float norm() const
     {
         float result = 0;
-        for (size_t i = 0; i < this->v.size(); i++)
-            result += this->v[i] * this->v[i];
+        for (size_t i = 0; i < this->vec.size(); i++)
+            result += this->vec[i] * this->vec[i];
         return pow(result, 0.5);
     }
     float norm_inf() const
     {
         float result = 0;
-        for (size_t i = 0; i < this->v.size(); i++)
-            result = std::max(result, std::abs(this->v[i]));
+        for (size_t i = 0; i < this->vec.size(); i++)
+            result = std::max(result, std::abs(this->vec[i]));
         return result;
     }
 };
 
 template <typename K>
-std::ostream &operator<<(std::ostream &os, const Vector<K> &v)
+std::ostream &operator<<(std::ostream &os, const Vector<K> &vec)
 {
     os << "[";
-    for (size_t i = 0; i < v.v.size(); i++)
+    for (size_t i = 0; i < vec.vec.size(); i++)
     {
-        os << v.v[i];
-        if (i < v.v.size() - 1)
+        os << vec.vec[i];
+        if (i < vec.vec.size() - 1)
             os << ", ";
     }
     os << "]";
