@@ -87,6 +87,13 @@ public:
         }
         return result;
     }
+    K dot(Vector v)
+    {
+        K result = 0;
+        for (size_t i = 0; i < this->v.size(); i++)
+            result += this->v[i] * v.v[i];
+        return result;
+    }
 };
 
 template <typename K>
