@@ -46,6 +46,18 @@ public:
             v[i] *= a;
         return *this;
     }
+    Vector &operator+(const Vector &v)
+    {
+        return *this += v;
+    }
+    Vector &operator-(const Vector &v)
+    {
+        return *this -= v;
+    }
+    Vector &operator*(K a)
+    {
+        return *this *= a;
+    }
 
     Vector &add(const Vector &v)
     {

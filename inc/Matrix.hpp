@@ -23,31 +23,43 @@ public:
         this->m = m;
     }
 
-    Matrix operator=(Matrix &other)
+    Matrix &operator=(const Matrix &other)
     {
         m = other.m;
         return *this;
     }
-    Matrix operator+=(Matrix &other)
+    Matrix &operator+=(const Matrix &other)
     {
         for (size_t i = 0; i < m.size(); i++)
             for (size_t j = 0; j < m[i].size(); j++)
                 m[i][j] += other.m[i][j];
         return *this;
     }
-    Matrix operator-=(Matrix &other)
+    Matrix &operator-=(const Matrix &other)
     {
         for (size_t i = 0; i < m.size(); i++)
             for (size_t j = 0; j < m[i].size(); j++)
                 m[i][j] -= other.m[i][j];
         return *this;
     }
-    Matrix operator*=(K a)
+    Matrix &operator*=(K a)
     {
         for (size_t i = 0; i < m.size(); i++)
             for (size_t j = 0; j < m[i].size(); j++)
                 m[i][j] *= a;
         return *this;
+    }
+    Matrix &operator+(const Matrix &m)
+    {
+        return *this += m;
+    }
+    Matrix &operator-(const Matrix &m)
+    {
+        return *this -= m;
+    }
+    Matrix &operator*(K a)
+    {
+        return *this *= a;
     }
 
     Matrix add(Matrix m)
