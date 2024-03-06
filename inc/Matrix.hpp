@@ -103,6 +103,16 @@ public:
         }
         return Matrix<K>(result);
     }
+    Matrix<K> trace() const
+    {
+        if (is_square(*this) == false)
+            throw std::invalid_argument("Matrix is not square");
+        std::vector<std::vector<K>> result;
+        K sum = 0;
+        for (size_t i = 0; i < this->mat.size(); i++)
+            sum += this->mat[i][i];
+        return Matrix<K>({{sum}});
+    }
 };
 
 template <typename K>

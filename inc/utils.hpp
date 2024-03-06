@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector.hpp"
+#include "Matrix.hpp"
 
 template <typename K>
 Vector<K> linear_combination(const std::list<Vector<K>> &u, const std::list<K> &coefs)
@@ -39,4 +40,13 @@ Vector<K> cross_product(const Vector<K> &u, const Vector<K> &v)
     result.vec.push_back(u.vec[2] * v.vec[0] - u.vec[0] * v.vec[2]);
     result.vec.push_back(u.vec[0] * v.vec[1] - u.vec[1] * v.vec[0]);
     return result;
+}
+
+template <typename K>
+bool is_square(const Matrix<K> &mat)
+{
+    for (size_t i = 0; i < mat.mat.size(); i++)
+        if (mat.mat[i].size() != mat.mat.size())
+            return false;
+    return true;
 }
