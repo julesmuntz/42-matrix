@@ -29,12 +29,15 @@ V lerp(V u, V v, float t)
 template <typename K>
 float angle_cos(const Vector<K> &u, const Vector<K> &v)
 {
+    is_same_dimension(u, v);
     return u.dot(v) / (u.norm() * v.norm());
 }
 
 template <typename K>
 Vector<K> cross_product(const Vector<K> &u, const Vector<K> &v)
 {
+    if (u.vec.size() != 3 || v.vec.size() != 3)
+        throw std::invalid_argument("Vectors must be 3-dimensional");
     Vector<K> result;
     result.vec.push_back(u.vec[1] * v.vec[2] - u.vec[2] * v.vec[1]);
     result.vec.push_back(u.vec[2] * v.vec[0] - u.vec[0] * v.vec[2]);
@@ -43,10 +46,15 @@ Vector<K> cross_product(const Vector<K> &u, const Vector<K> &v)
 }
 
 template <typename K>
-bool is_square(const Matrix<K> &mat)
+void is_square(const Matrix<K> &mat)
 {
-    for (size_t i = 0; i < mat.mat.size(); i++)
-        if (mat.mat[i].size() != mat.mat.size())
-            return false;
-    return true;
+    if (mat.mat.size() != mat.mat[0].size())
+        throw std::invalid_argument("Matrix must be square");
+}
+
+template <typename K>
+void is_same_dimension(const Vector<K> &u, const Vector<K> &v)
+{
+    if (u.vec.size() != v.vec.size())
+        throw std::invalid_argument("Vectors must be of the same dimension");
 }

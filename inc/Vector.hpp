@@ -75,6 +75,7 @@ public:
 
     K dot(Vector<K> vec) const
     {
+        is_same_dimension(*this, vec);
         K result = 0;
         for (size_t i = 0; i < this->vec.size(); i++)
             result += this->vec[i] * vec.vec[i];

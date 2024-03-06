@@ -20,6 +20,9 @@ public:
     Matrix<K>(std::vector<std::vector<K>> mat)
     {
         this->mat = mat;
+        for (size_t i = 0; i < mat.size(); i++)
+            if (mat[i].size() != mat[0].size())
+                throw std::invalid_argument("Matrix must be rectangular");
     }
 
     Matrix<K> &operator=(const Matrix<K> &other)
@@ -105,13 +108,24 @@ public:
     }
     Matrix<K> trace() const
     {
-        if (is_square(*this) == false)
-            throw std::invalid_argument("Matrix is not square");
+        is_square(*this);
         std::vector<std::vector<K>> result;
         K sum = 0;
         for (size_t i = 0; i < this->mat.size(); i++)
             sum += this->mat[i][i];
         return Matrix<K>({{sum}});
+    }
+    Matrix<K> transpose() const
+    {
+        std::vector<std::vector<K>> result;
+        for (size_t i = 0; i < this->mat[0].size(); i++)
+        {
+            std::vector<K> row;
+            for (size_t j = 0; j < this->mat.size(); j++)
+                row.push_back(this->mat[j][i]);
+            result.push_back(row);
+        }
+        return Matrix<K>(result);
     }
 };
 
