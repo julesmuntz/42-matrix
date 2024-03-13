@@ -30,6 +30,7 @@ public:
     Matrix<K> trace() const;
     Matrix<K> transpose() const;
     Matrix<K> row_echelon() const;
+    K determinant() const;
 
     class exception : public std::exception
     {

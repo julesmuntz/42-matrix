@@ -20,7 +20,7 @@ Matrix<K>::Matrix(const std::vector<std::vector<K>> mat) : mat(mat)
 {
     for (size_t i = 0; i < mat.size(); i++)
         if (mat[i].size() != mat[0].size())
-            throw std::invalid_argument("Matrix must be rectangular");
+            throw typename Matrix<K>::exception("Matrix must be rectangular");
 }
 
 template <typename K>
@@ -213,4 +213,34 @@ Matrix<K> Matrix<K>::row_echelon() const
         c_index++;
     }
     return (Matrix<K>(result));
+}
+
+template <typename K>
+K Matrix<K>::determinant() const
+{
+    is_square(*this);
+    K det = 1;
+    std::vector<std::vector<K>> temp = this->mat;
+    for (size_t i = 0; i < temp.size(); i++)
+    {
+        size_t pivot = i;
+        for (size_t j = (i + 1); j < temp.size(); j++)
+            if (std::abs(temp[j][i]) > std::abs(temp[pivot][i]))
+                pivot = j;
+        if (pivot != i)
+        {
+            std::swap(temp[i], temp[pivot]);
+            det *= -1;
+        }
+        if (temp[i][i] == 0)
+            return (0);
+        det *= temp[i][i];
+        for (size_t j = (i + 1); j < temp.size(); j++)
+        {
+            K factor = temp[j][i] / temp[i][i];
+            for (size_t k = (i + 1); k < temp.size(); k++)
+                temp[j][k] -= (factor * temp[i][k]);
+        }
+    }
+    return det;
 }
