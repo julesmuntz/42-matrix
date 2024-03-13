@@ -7,18 +7,18 @@ int main()
     try
     {
         {
-            Vector<float> u = Vector<float>({0., 0.});
-            const Vector<float> v = Vector<float>({1., 1.});
+            Vector<float> u({0., 0.});
+            const Vector<float> v({1., 1.});
             std::cout << u.dot(v) << std::endl << std::endl;
         }
         {
-            Vector<float> u = Vector<float>({1., 1.});
-            const Vector<float> v = Vector<float>({1., 1.});
+            Vector<float> u({1., 1.});
+            const Vector<float> v({1., 1.});
             std::cout << u.dot(v) << std::endl << std::endl;
         }
         {
-            Vector<float> u = Vector<float>({-1., 6.});
-            const Vector<float> v = Vector<float>({3., 2.});
+            Vector<float> u({-1., 6.});
+            const Vector<float> v({3., 2.});
             std::cout << u.dot(v) << std::endl << std::endl;
         }
     }

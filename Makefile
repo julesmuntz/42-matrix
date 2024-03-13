@@ -1,6 +1,6 @@
 BIN_DIR = 	bin
 CXX =		c++
-CXXFLAGS =	-Wall -Wextra -Werror -pthread -g3 -Iinc -MMD -MP
+CXXFLAGS =	-Wall -Wextra -Werror -pthread -g3 -Iinc -Iinc/matrix -Iinc/vector -MMD -MP
 
 SRC_DIR = 	src
 SRC =		00.cpp \
@@ -13,6 +13,7 @@ SRC =		00.cpp \
             07.cpp \
             08.cpp \
             09.cpp \
+            10.cpp \
 
 SRC :=		$(addprefix $(SRC_DIR)/, $(SRC))
 
