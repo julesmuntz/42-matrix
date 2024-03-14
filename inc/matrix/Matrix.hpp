@@ -31,6 +31,7 @@ public:
     Matrix<K> transpose() const;
     Matrix<K> row_echelon() const;
     K determinant() const;
+    std::optional<Matrix<K>> inverse() const;
 
     class exception : public std::exception
     {

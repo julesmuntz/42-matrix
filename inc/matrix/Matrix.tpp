@@ -244,3 +244,28 @@ K Matrix<K>::determinant() const
     }
     return det;
 }
+
+template <typename K>
+std::optional<Matrix<K>> Matrix<K>::inverse() const
+{
+    is_square(*this);
+    K det = this->determinant();
+    std::vector<std::vector<K>> result;
+    for (size_t i = 0; i < this->mat.size(); i++)
+    {
+        std::vector<K> row;
+        for (size_t j = 0; j < this->mat[i].size(); j++)
+        {
+            std::vector<std::vector<K>> temp = this->mat;
+            temp.erase(temp.begin() + i);
+            for (size_t k = 0; k < temp.size(); k++)
+                temp[k].erase(temp[k].begin() + j);
+            K cofactor = Matrix<K>(temp).determinant();
+            if ((i + j) % 2)
+                cofactor *= -1;
+            row.push_back(cofactor / det);
+        }
+        result.push_back(row);
+    }
+    return (Matrix<K>(result).transpose());
+}

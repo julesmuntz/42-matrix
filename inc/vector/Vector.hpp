@@ -4,6 +4,7 @@
 #include <iostream>
 #include <list>
 #include <cmath>
+#include <optional>
 
 template <typename K>
 class Vector
