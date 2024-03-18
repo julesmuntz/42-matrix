@@ -9,17 +9,17 @@ int main()
         {
             const Vector<float> u({0., 0., 1.});
             const Vector<float> v({1., 0., 0.});
-            std::cout << cross_product(u, v) << std::endl << std::endl;
+            cross_product(u, v).print(std::cout);
         }
         {
             const Vector<float> u({1., 2., 3.});
             const Vector<float> v({4., 5., 6.});
-            std::cout << cross_product(u, v) << std::endl << std::endl;
+            cross_product(u, v).print(std::cout);
         }
         {
             const Vector<float> u({4., 2., -3.});
             const Vector<float> v({-2., -5., 16.});
-            std::cout << cross_product(u, v) << std::endl << std::endl;
+            cross_product(u, v).print(std::cout);
         }
     }
     catch (const std::exception &e)

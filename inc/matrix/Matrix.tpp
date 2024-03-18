@@ -24,24 +24,40 @@ Matrix<K>::Matrix(const std::vector<std::vector<K>> mat) : mat(mat)
 }
 
 template <typename K>
-std::ostream &operator<<(std::ostream &os, const Matrix<K> &mat)
+void Matrix<K>::print(std::ostream &os) const
 {
     os << "[";
-    for (size_t i = 0; i < mat.mat.size(); i++)
+    for (size_t i = 0; i < mat.size(); i++)
     {
         os << "[";
+        for (size_t j = 0; j < mat[i].size(); j++)
+        {
+            os << mat[i][j];
+            if (j < mat[i].size() - 1)
+                os << ", ";
+        }
+        os << "]";
+        if (i < mat.size() - 1)
+            os << std::endl
+               << " ";
+    }
+    os << "]" << std::endl << std::endl;
+}
+
+template <typename K>
+std::ostream &operator<<(std::ostream &os, const Matrix<K> &mat)
+{
+    for (size_t i = 0; i < mat.mat.size(); i++)
+    {
         for (size_t j = 0; j < mat.mat[i].size(); j++)
         {
             os << mat.mat[i][j];
             if (j < mat.mat[i].size() - 1)
                 os << ", ";
         }
-        os << "]";
         if (i < mat.mat.size() - 1)
-            os << "," << std::endl
-               << " ";
+            os << std::endl;
     }
-    os << "]";
     return os;
 }
 

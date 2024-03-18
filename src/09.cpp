@@ -8,15 +8,15 @@ int main()
     {
         {
             const Matrix<float> u({{1., 2.}, {3., 4.}, {5., 6.}});
-            std::cout << u.transpose() << std::endl << std::endl;
+            u.transpose().print(std::cout);
         }
         {
             const Matrix<float> u({{1., 2., 3.}, {4., 5., 6.}});
-            std::cout << u.transpose() << std::endl << std::endl;
+            u.transpose().print(std::cout);
         }
         {
             const Matrix<float> u({{1., 2.}, {3., 4.}});
-            std::cout << u.transpose() << std::endl << std::endl;
+            u.transpose().print(std::cout);
         }
     }
     catch (const std::exception &e)

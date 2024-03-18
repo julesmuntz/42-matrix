@@ -13,6 +13,8 @@ public:
     Matrix<K>(const Matrix<K> &other);
     Matrix<K>(const std::vector<std::vector<K>> mat);
 
+    void print(std::ostream &os) const;
+
     Matrix<K> &operator=(const Matrix<K> &other);
     Matrix<K> &operator+=(const Matrix<K> &other);
     Matrix<K> &operator-=(const Matrix<K> &other);

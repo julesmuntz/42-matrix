@@ -5,6 +5,7 @@
 #include <list>
 #include <cmath>
 #include <optional>
+#include <fstream>
 
 template <typename K>
 class Vector
@@ -16,6 +17,8 @@ public:
     ~Vector<K>();
     Vector<K>(const Vector<K> &other);
     Vector<K>(const std::vector<K> &vec);
+
+    void print(std::ostream &os) const;
 
     Vector<K> &operator=(const Vector<K> &other);
     Vector<K> &operator+=(const Vector<K> &other);

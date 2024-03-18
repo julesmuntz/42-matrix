@@ -58,3 +58,17 @@ void is_same_dimension(const Vector<K> &u, const Vector<K> &v)
     if (u.vec.size() != v.vec.size())
         throw typename Vector<K>::exception("Vectors must be of the same dimension");
 }
+
+Matrix<float> projection(float fov, float ratio, float near, float far)
+{
+    Matrix<float> result;
+    float top = near * tan(fov * M_PI / 180 / 2);
+    float right = top * ratio;
+    float bottom = -top;
+    float left = -right;
+    result.mat.push_back({2 * near / (right - left), 0, 0, -near * (right + left) / (right - left)});
+    result.mat.push_back({0, 2 * near / (top - bottom), 0, -near * (top + bottom) / (top - bottom)});
+    result.mat.push_back({0, 0, -(far + near) / (far - near), 2 * far * near / (near - far)});
+    result.mat.push_back({0, 0, -1, 0});
+    return result.transpose();
+}

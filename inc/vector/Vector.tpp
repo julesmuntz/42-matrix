@@ -21,16 +21,27 @@ Vector<K>::Vector(const std::vector<K> &vec) : vec(vec)
 }
 
 template <typename K>
-std::ostream &operator<<(std::ostream &os, const Vector<K> &vec)
+void Vector<K>::print(std::ostream &os) const
 {
     os << "[";
+    for (size_t i = 0; i < vec.size(); i++)
+    {
+        os << vec[i];
+        if (i < vec.size() - 1)
+            os << ", ";
+    }
+    os << "]" << std::endl << std::endl;
+}
+
+template <typename K>
+std::ostream &operator<<(std::ostream &os, const Vector<K> &vec)
+{
     for (size_t i = 0; i < vec.vec.size(); i++)
     {
         os << vec.vec[i];
         if (i < vec.vec.size() - 1)
             os << ", ";
     }
-    os << "]";
     return (os);
 }
 
