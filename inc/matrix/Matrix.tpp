@@ -149,14 +149,14 @@ Matrix<K> Matrix<K>::mul_mat(Matrix<K> mat) const
 }
 
 template <typename K>
-Matrix<K> Matrix<K>::trace() const
+K Matrix<K>::trace() const
 {
     is_square(*this);
     std::vector<std::vector<K>> result;
     K sum = 0;
     for (size_t i = 0; i < this->mat.size(); i++)
         sum += this->mat[i][i];
-    return (Matrix<K>({{sum}}));
+    return (sum);
 }
 
 template <typename K>
@@ -174,7 +174,7 @@ Matrix<K> Matrix<K>::transpose() const
 }
 
 template <typename K>
-Matrix<K> Matrix<K>::row_echelon() const
+Matrix<K> Matrix<K>::rref(bool reduced) const
 {
     std::vector<std::vector<K>> result = this->mat;
     size_t r_index = 0;
@@ -196,7 +196,7 @@ Matrix<K> Matrix<K>::row_echelon() const
             continue;
         }
         K pivot = result[r_index][c_index];
-        if (pivot != 0)
+        if (reduced && pivot != 0)
         {
             for (size_t j = c_index; j < c_size; j++)
                 result[r_index][j] /= pivot;
@@ -205,7 +205,11 @@ Matrix<K> Matrix<K>::row_echelon() const
         {
             if (i == r_index)
                 continue;
-            K factor = result[i][c_index];
+            K factor;
+            if (reduced)
+                factor = result[i][c_index];
+            else
+                factor = result[i][c_index] / pivot;
             for (size_t k = c_index; k < c_size; k++)
                 result[i][k] -= (factor * result[r_index][k]);
         }
@@ -216,32 +220,25 @@ Matrix<K> Matrix<K>::row_echelon() const
 }
 
 template <typename K>
+Matrix<K> Matrix<K>::row_echelon() const
+{
+    return rref(true);
+}
+
+template <typename K>
+Matrix<K> Matrix<K>::non_reduced_row_echelon() const
+{
+    return rref(false);
+}
+
+template <typename K>
 K Matrix<K>::determinant() const
 {
     is_square(*this);
+    Matrix<K> temp = this->non_reduced_row_echelon();
     K det = 1;
-    std::vector<std::vector<K>> temp = this->mat;
-    for (size_t i = 0; i < temp.size(); i++)
-    {
-        size_t pivot = i;
-        for (size_t j = (i + 1); j < temp.size(); j++)
-            if (std::abs(temp[j][i]) > std::abs(temp[pivot][i]))
-                pivot = j;
-        if (pivot != i)
-        {
-            std::swap(temp[i], temp[pivot]);
-            det *= -1;
-        }
-        if (temp[i][i] == 0)
-            return (0);
-        det *= temp[i][i];
-        for (size_t j = (i + 1); j < temp.size(); j++)
-        {
-            K factor = temp[j][i] / temp[i][i];
-            for (size_t k = (i + 1); k < temp.size(); k++)
-                temp[j][k] -= (factor * temp[i][k]);
-        }
-    }
+    for (size_t i = 0; i < temp.mat.size(); i++)
+        det *= temp.mat[i][i];
     return det;
 }
 
@@ -249,23 +246,37 @@ template <typename K>
 std::optional<Matrix<K>> Matrix<K>::inverse() const
 {
     is_square(*this);
-    K det = this->determinant();
-    std::vector<std::vector<K>> result;
-    for (size_t i = 0; i < this->mat.size(); i++)
+    if (this->determinant() == 0)
+        return std::nullopt;
+    size_t size = this->mat.size();
+    std::vector<std::vector<K>> augmented(size, std::vector<K>(2 * size));
+    for (size_t i = 0; i < size; i++)
     {
-        std::vector<K> row;
-        for (size_t j = 0; j < this->mat[i].size(); j++)
-        {
-            std::vector<std::vector<K>> temp = this->mat;
-            temp.erase(temp.begin() + i);
-            for (size_t k = 0; k < temp.size(); k++)
-                temp[k].erase(temp[k].begin() + j);
-            K cofactor = Matrix<K>(temp).determinant();
-            if ((i + j) % 2)
-                cofactor *= -1;
-            row.push_back(cofactor / det);
-        }
-        result.push_back(row);
+        std::copy(this->mat[i].begin(), this->mat[i].end(), augmented[i].begin());
+        augmented[i][i + size] = 1;
     }
-    return (Matrix<K>(result).transpose());
+    Matrix<K> temp = Matrix<K>(augmented).rref(true);
+    std::vector<std::vector<K>> result(size, std::vector<K>(size));
+    for (size_t i = 0; i < size; i++)
+        std::copy(temp.mat[i].begin() + size, temp.mat[i].end(), result[i].begin());
+    return Matrix<K>(result);
+}
+
+template <typename K>
+size_t Matrix<K>::rank() const
+{
+    size_t result = 0;
+    Matrix<K> temp = this->row_echelon();
+    for (size_t i = 0; i < temp.mat.size(); i++)
+    {
+        for (size_t j = 0; j < temp.mat[i].size(); j++)
+        {
+            if (temp.mat[i][j] != 0)
+            {
+                result++;
+                break;
+            }
+        }
+    }
+    return result;
 }
