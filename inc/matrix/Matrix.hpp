@@ -12,6 +12,7 @@ public:
     ~Matrix<K>();
     Matrix<K>(const Matrix<K> &other);
     Matrix<K>(const std::vector<std::vector<K>> mat);
+    Matrix<K>(std::initializer_list<std::initializer_list<K>> init_list);
 
     void print(std::ostream &os) const;
 

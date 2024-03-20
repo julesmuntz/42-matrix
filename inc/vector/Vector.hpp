@@ -6,6 +6,7 @@
 #include <cmath>
 #include <optional>
 #include <fstream>
+#include <complex>
 
 template <typename K>
 class Vector
@@ -17,6 +18,7 @@ public:
     ~Vector<K>();
     Vector<K>(const Vector<K> &other);
     Vector<K>(const std::vector<K> &vec);
+    Vector<K>(std::initializer_list<K> init_list);
 
     void print(std::ostream &os) const;
 

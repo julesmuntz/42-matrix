@@ -24,6 +24,15 @@ Matrix<K>::Matrix(const std::vector<std::vector<K>> mat) : mat(mat)
 }
 
 template <typename K>
+Matrix<K>::Matrix(std::initializer_list<std::initializer_list<K>> init_list)
+{
+    for (const auto &inner_list : init_list)
+    {
+        mat.push_back(std::vector<K>(inner_list));
+    }
+}
+
+template <typename K>
 void Matrix<K>::print(std::ostream &os) const
 {
     os << "[";
@@ -41,7 +50,8 @@ void Matrix<K>::print(std::ostream &os) const
             os << std::endl
                << " ";
     }
-    os << "]" << std::endl << std::endl;
+    os << "]" << std::endl
+       << std::endl;
 }
 
 template <typename K>
@@ -206,13 +216,13 @@ Matrix<K> Matrix<K>::rref(bool reduced) const
                 max = i;
         if (max != r_index)
             std::swap(result[max], result[r_index]);
-        if (result[r_index][c_index] == 0)
+        if (std::abs(result[r_index][c_index]) == 0)
         {
             c_index++;
             continue;
         }
         K pivot = result[r_index][c_index];
-        if (reduced && pivot != 0)
+        if (reduced && std::abs(pivot) != 0)
         {
             for (size_t j = c_index; j < c_size; j++)
                 result[r_index][j] /= pivot;
@@ -262,7 +272,7 @@ template <typename K>
 std::optional<Matrix<K>> Matrix<K>::inverse() const
 {
     is_square(*this);
-    if (this->determinant() == 0)
+    if (std::abs(this->determinant()) == 0)
         return std::nullopt;
     size_t size = this->mat.size();
     std::vector<std::vector<K>> augmented(size, std::vector<K>(2 * size));
@@ -287,7 +297,7 @@ size_t Matrix<K>::rank() const
     {
         for (size_t j = 0; j < temp.mat[i].size(); j++)
         {
-            if (temp.mat[i][j] != 0)
+            if (std::abs(temp.mat[i][j]) != 0)
             {
                 result++;
                 break;

@@ -3,6 +3,8 @@
 #include "Vector.hpp"
 #include "Matrix.hpp"
 
+using C = std::complex<float>;
+
 template <typename K>
 Vector<K> linear_combination(const std::list<Vector<K>> &u, const std::list<K> &coefs)
 {
@@ -30,7 +32,7 @@ template <typename K>
 float angle_cos(const Vector<K> &u, const Vector<K> &v)
 {
     is_same_dimension(u, v);
-    return u.dot(v) / (u.norm() * v.norm());
+    return std::abs(u.dot(v)) / (std::abs(u.norm()) * std::abs(v.norm()));
 }
 
 template <typename K>

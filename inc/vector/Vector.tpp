@@ -21,6 +21,11 @@ Vector<K>::Vector(const std::vector<K> &vec) : vec(vec)
 }
 
 template <typename K>
+Vector<K>::Vector(std::initializer_list<K> init_list) : vec(init_list)
+{
+}
+
+template <typename K>
 void Vector<K>::print(std::ostream &os) const
 {
     os << "[";
@@ -30,7 +35,8 @@ void Vector<K>::print(std::ostream &os) const
         if (i < vec.size() - 1)
             os << ", ";
     }
-    os << "]" << std::endl << std::endl;
+    os << "]" << std::endl
+       << std::endl;
 }
 
 template <typename K>
@@ -136,7 +142,7 @@ float Vector<K>::norm(void) const
 {
     float result = 0;
     for (size_t i = 0; i < this->vec.size(); i++)
-        result += this->vec[i] * this->vec[i];
+        result += std::abs(this->vec[i]) * std::abs(this->vec[i]);
     return (pow(result, 0.5));
 }
 
