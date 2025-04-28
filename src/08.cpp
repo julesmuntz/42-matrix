@@ -8,16 +8,23 @@ int main()
     {
         {
             const Matrix<float> u({{1., 0.}, {0., 1.}});
-            std::cout << u.trace() << std::endl << std::endl;
+            std::cout << u.trace() << std::endl;
         }
         {
             const Matrix<float> u({{2., -5., 0.}, {4., 3., 7.}, {-2., 3., 4.}});
-            std::cout << u.trace() << std::endl << std::endl;
+            std::cout << u.trace() << std::endl;
         }
         {
             const Matrix<float> u({{-2., -8., 4.}, {1., -23., 4.}, {0., 6., 4.}});
-            std::cout << u.trace() << std::endl << std::endl;
+            std::cout << u.trace() << std::endl;
         }
+
+        std::cout << "\n--- Trace Tests ---\n";
+        std::cout << Matrix<float>({{0, 0}, {0, 0}}).trace() << std::endl;
+        std::cout << Matrix<float>({{1, 0}, {0, 1}}).trace() << std::endl;
+        std::cout << Matrix<float>({{1, 2}, {3, 4}}).trace() << std::endl;
+        std::cout << Matrix<float>({{8, -7}, {4, 2}}).trace() << std::endl;
+        std::cout << Matrix<float>({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}).trace() << std::endl;
     }
     catch (const std::exception &e)
     {

@@ -15,6 +15,12 @@ int main()
 
         linear_combination<float>({e1, e2, e3}, {10., -2., 0.5}).print(std::cout);
         linear_combination<float>({v1, v2}, {10., -2.}).print(std::cout);
+
+        std::cout << "\n--- Linear Combination Tests ---\n";
+        linear_combination<float>({Vector<float>({-42, 42})}, {-1}).print(std::cout);
+        linear_combination<float>({Vector<float>({-42}), Vector<float>({-42}), Vector<float>({-42})}, {-1, 1, 0}).print(std::cout);
+        linear_combination<float>({Vector<float>({-42, 42}), Vector<float>({1, 3}), Vector<float>({10, 20})}, {1, -10, -1}).print(std::cout);
+        linear_combination<float>({Vector<float>({-42, 100, -69.5}), Vector<float>({1, 3, 5})}, {1, -10}).print(std::cout);
     }
     catch (const std::exception &e)
     {

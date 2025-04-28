@@ -8,20 +8,30 @@ int main()
     {
         {
             const Matrix<float> u({{1., -1.}, {-1., 1.}});
-            std::cout << u.determinant() << std::endl << std::endl;
+            std::cout << u.determinant() << std::endl;
         }
         {
             const Matrix<float> u({{2., 0., 0.}, {0., 2., 0.}, {0., 0., 2.}});
-            std::cout << u.determinant() << std::endl << std::endl;
+            std::cout << u.determinant() << std::endl;
         }
         {
             const Matrix<float> u({{8., 5., -2.}, {4., 7., 20.}, {7., 6., 1.}});
-            std::cout << u.determinant() << std::endl << std::endl;
+            std::cout << u.determinant() << std::endl;
         }
         {
             const Matrix<float> u({{8., 5., -2., 4.}, {4., 2.5, 20., 4.}, {8., 5., 1., 4.}, {28., -4., 17., 1.}});
-            std::cout << u.determinant() << std::endl << std::endl;
+            std::cout << u.determinant() << std::endl;
         }
+
+        std::cout << "\n--- Determinant Tests ---\n";
+        std::cout << Matrix<float>({{0, 0}, {0, 0}}).determinant() << std::endl;
+        std::cout << Matrix<float>({{1, 0}, {0, 1}}).determinant() << std::endl;
+        std::cout << Matrix<float>({{2, 0}, {0, 2}}).determinant() << std::endl;
+        std::cout << Matrix<float>({{1, 1}, {1, 1}}).determinant() << std::endl;
+        std::cout << Matrix<float>({{0, 1}, {1, 0}}).determinant() << std::endl;
+        std::cout << Matrix<float>({{1, 2}, {3, 4}}).determinant() << std::endl;
+        std::cout << Matrix<float>({{-7, 5}, {4, 6}}).determinant() << std::endl;
+        std::cout << Matrix<float>({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}).determinant() << std::endl;
     }
     catch (const std::exception &e)
     {

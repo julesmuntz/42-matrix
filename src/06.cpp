@@ -21,6 +21,14 @@ int main()
             const Vector<float> v({-2., -5., 16.});
             cross_product(u, v).print(std::cout);
         }
+
+        std::cout << "\n--- Cross Product Tests ---\n";
+        cross_product(Vector<float>({0, 0, 0}), Vector<float>({0, 0, 0})).print(std::cout);
+        cross_product(Vector<float>({1, 0, 0}), Vector<float>({0, 0, 0})).print(std::cout);
+        cross_product(Vector<float>({1, 0, 0}), Vector<float>({0, 1, 0})).print(std::cout);
+        cross_product(Vector<float>({8, 7, -4}), Vector<float>({3, 2, 1})).print(std::cout);
+        cross_product(Vector<float>({1, 1, 1}), Vector<float>({0, 0, 0})).print(std::cout);
+        cross_product(Vector<float>({1, 1, 1}), Vector<float>({1, 1, 1})).print(std::cout);
     }
     catch (const std::exception &e)
     {

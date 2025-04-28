@@ -24,6 +24,32 @@ int main()
             if (inv)
                 inv->print(std::cout);
         }
+
+        std::cout << "\n--- Inverse Tests ---\n";
+        Matrix<float> a({{1, 0}, {0, 1}});
+        auto ia = a.inverse();
+        if (ia)
+            ia->print(std::cout);
+        Matrix<float> b({{2, 0}, {0, 2}});
+        auto ib = b.inverse();
+        if (ib)
+            ib->print(std::cout);
+        Matrix<float> c({{0.5, 0}, {0, 0.5}});
+        auto ic = c.inverse();
+        if (ic)
+            ic->print(std::cout);
+        Matrix<float> d({{0, 1}, {1, 0}});
+        auto id = d.inverse();
+        if (id)
+            id->print(std::cout);
+        Matrix<float> e({{1, 2}, {3, 4}});
+        auto ie = e.inverse();
+        if (ie)
+            ie->print(std::cout);
+        Matrix<float> f({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}});
+        auto if_ = f.inverse();
+        if (if_)
+            if_->print(std::cout);
     }
     catch (const std::exception &e)
     {
