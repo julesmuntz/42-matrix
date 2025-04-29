@@ -190,7 +190,7 @@ Matrix<K> Matrix<K>::transpose() const
 }
 
 template <typename K>
-Matrix<K> Matrix<K>::rref(bool reduced) const
+Matrix<K> Matrix<K>::rref(bool reduced, size_t &swap_count) const
 {
     std::vector<std::vector<K>> result = this->mat;
     size_t r_index = 0;
@@ -205,7 +205,10 @@ Matrix<K> Matrix<K>::rref(bool reduced) const
             if (std::abs(result[i][c_index]) > std::abs(result[max][c_index]))
                 max = i;
         if (max != r_index)
+        {
             std::swap(result[max], result[r_index]);
+            swap_count++;
+        }
         if (result[r_index][c_index] == 0)
         {
             c_index++;
@@ -238,24 +241,23 @@ Matrix<K> Matrix<K>::rref(bool reduced) const
 template <typename K>
 Matrix<K> Matrix<K>::row_echelon() const
 {
-    return rref(true);
-}
-
-template <typename K>
-Matrix<K> Matrix<K>::non_reduced_row_echelon() const
-{
-    return rref(false);
+    size_t dummy = 0;
+    return rref(true, dummy);
 }
 
 template <typename K>
 K Matrix<K>::determinant() const
 {
     is_square(*this);
-    Matrix<K> temp = this->non_reduced_row_echelon();
+    size_t swap_count = 0;
+    Matrix<K> temp = this->rref(false, swap_count);
     K det = 1;
     for (size_t i = 0; i < temp.mat.size(); i++)
         det *= temp.mat[i][i];
-    return det;
+    if (swap_count % 2 == 0)
+        return det;
+    else
+        return -det;
 }
 
 template <typename K>
@@ -271,7 +273,7 @@ std::optional<Matrix<K>> Matrix<K>::inverse() const
         std::copy(this->mat[i].begin(), this->mat[i].end(), augmented[i].begin());
         augmented[i][i + size] = 1;
     }
-    Matrix<K> temp = Matrix<K>(augmented).rref(true);
+    Matrix<K> temp = Matrix<K>(augmented).row_echelon();
     std::vector<std::vector<K>> result(size, std::vector<K>(size));
     for (size_t i = 0; i < size; i++)
         std::copy(temp.mat[i].begin() + size, temp.mat[i].end(), result[i].begin());

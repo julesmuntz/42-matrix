@@ -31,9 +31,8 @@ public:
     Matrix<K> mul_mat(Matrix<K> mat) const;
     K trace() const;
     Matrix<K> transpose() const;
-    Matrix<K> rref(bool reduced) const;
+    Matrix<K> rref(bool reduced, size_t &swap_count) const;
     Matrix<K> row_echelon() const;
-    Matrix<K> non_reduced_row_echelon() const;
     K determinant() const;
     std::optional<Matrix<K>> inverse() const;
     size_t rank() const;

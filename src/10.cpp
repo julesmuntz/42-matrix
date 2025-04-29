@@ -22,6 +22,10 @@ int main()
             const Matrix<float> u({{8., 5., -2., 4., 28.}, {4., 2.5, 20., 4., -4.}, {8., 5., 1., 4., 17.}});
             u.row_echelon().print(std::cout);
         }
+        {
+            const Matrix<float> u({{1., 2., 3., 4.}, {2., 4., 6., 8.}, {3., 6., 9., 12.}, {4., 5., 6., 7.}});
+            u.row_echelon().print(std::cout);
+        }
 
         std::cout << "\n--- Row-Echelon Form Tests ---\n";
         Matrix<float> a({{0, 0}, {0, 0}});

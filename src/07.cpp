@@ -6,8 +6,8 @@ int main()
     try
     {
         {
-            const Matrix<float> u({{1., 0.}, {0., 1.}});
-            const Vector<float> v({4., 2.});
+            Matrix<float> u({{1, 2}, {3, 4}});
+            Vector<float> v({5, 6});
             u.mul_vec(v).print(std::cout);
         }
         {
@@ -50,7 +50,7 @@ int main()
         Matrix<float> d({{2, 0}, {0, 2}});
         Vector<float> vd({2, 1});
         d.mul_vec(vd).print(std::cout);
-        Matrix<float> e({{0.5, 0}, {0, 1}});
+        Matrix<float> e({{0.5, 0}, {0, 0.5}});
         Vector<float> ve({4, 2});
         e.mul_vec(ve).print(std::cout);
     }

@@ -72,3 +72,10 @@ Matrix<float> projection(float fov, float ratio, float near, float far)
     result.mat.push_back({0, 0, -1, 0});
     return result.transpose();
 }
+
+template <typename N>
+void print(N n)
+{
+    std::cout << n << std::endl
+              << std::endl;
+}
